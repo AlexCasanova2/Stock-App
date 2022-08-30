@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RolesController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\LogoutController;
@@ -53,3 +54,6 @@ Route::delete('element/{element}', [ElementController::class, 'destroy'])->name(
 Route::get('/proveidor/create', [ProveidorController::class, 'create'])->name('proveidor.create');
 Route::post('/proveidor', [ProveidorController::class, 'store'])->name('proveidor.store');
 Route::delete('proveidor/{proveidor}', [ProveidorController::class, 'destroy'])->name('proveidor.destroy');
+
+Route::get('/role/create', [RolesController::class , 'create'])->name('role.create');
+Route::post('/role', [RolesController::class, 'store'])->name('role.store');

@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Proveidor;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Element extends Model
 {
     use HasFactory;
+    protected $dates = ['adquisicio'];
 
     protected $fillable = [
         'name',
@@ -29,8 +31,13 @@ class Element extends Model
     public function user(){
         return $this->belongsTo(User::class)->select(['name', 'email']);
     }
-
+    public function proveidor(){
+        return $this->belongsTo(Proveidor::class)->select(['id', 'name']);
+    }
     public function area(){
-        
+        return $this->belongsTo(Area::class)->select(['id', 'name']);
+    }
+    public function client(){
+        return $this->belongsTo(Client::class)->select(['id', 'name']);
     }
 }

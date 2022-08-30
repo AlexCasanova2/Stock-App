@@ -15,7 +15,7 @@ class ElementController extends Controller
     public function create(){
         $areas = DB::table('areas')->select('id', 'name')->get();
         $clients = DB::table('clients')->select('id', 'name')->get();
-        $estats = DB::table('estats')->select('id', 'name')->get();
+        $estats = DB::table('estats')->select('id','name')->get();
         $proveidors = DB::table('proveidors')->select('id', 'name')->get();
         return view('element.create',[
             'areas' => $areas,
@@ -60,9 +60,10 @@ class ElementController extends Controller
         return redirect()->route('element.create');
     }
 
-    public function show(Element $element){
+    public function show(){
+        $element1 = Element::with('proveidor', 'client', 'area')->get();
         return view('element.show', [
-            'element' => $element
+            'element' => $element1
         ]);
     }
 

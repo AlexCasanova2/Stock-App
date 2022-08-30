@@ -30,8 +30,8 @@
 
                 @guest
                 <nav class="flex gap-2">
-                    <a class="font-bold uppercase text-gray-600 text-sm" href="{{route('login')}}">Inicia sessió</a>
-                    <a class="font-bold uppercase text-gray-600 text-sm" href="{{route('register')}}">Registre</a>
+                    <!-- a class="font-bold uppercase text-gray-600 text-sm" href="{{route('login')}}">Inicia sessió</a>-->
+                    <!--<a class="font-bold uppercase text-gray-600 text-sm" href="{{route('register')}}">Registre</a>-->
                 </nav>
                 @endguest  
                 
@@ -39,11 +39,11 @@
         </header>
         
         <main class="container mx-auto mt-10">
-            <h2 class="font-black text-center text-3xl mb-10 capitalize">@yield('title')</h2>
+            <!--<h2 class="font-black text-center text-3xl mb-10 capitalize">@yield('title')</h2>-->
             @yield('content')
         </main>
         <footer class="mt-10 text-center p-5 uppercase text-gray-800 font-bold">
-            TandemStock - Todos los derechos reservados {{now()->year}}
+            <!-- TandemStock - Todos los derechos reservados {{now()->year}} -->
         </footer>
     </body>
 </html>

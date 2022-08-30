@@ -9,8 +9,12 @@ Crear element
 @endpush
 
 @section('content')
+<h2 class="font-black text-center text-3xl mb-10 capitalize">@yield('title')</h2>
 
-<div>Tornar a l'inici</div>
+<div><a href="/">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-6" style="display: inline-table">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+      </svg> Tornar a l'inici</a></div>
 <div class="md:flex md:justify-center md:gap-10 md:items-center p-5">
     <div class="md:w-6/12 bg-white p-6 rounded-lg shadow-xl">
         <form action="{{route('element.store')}}" method="POST" novalidate>
@@ -117,7 +121,7 @@ Crear element
                     @endif
                     @if ($estats)
                         @foreach ($estats as  $estat)
-                            <option value="{{$estat->id}}">{{$estat->name}}</option>
+                            <option value="{{$estat->name}}">{{$estat->name}}</option>
                         @endforeach
                     @endif
                     
@@ -150,7 +154,7 @@ Crear element
                     <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                 @enderror
             </div>
-            <input type="submit" value="Crear area" style="background:#00abaa;" class=" hover:bg-sky-700 transition-colors cursor-pointer uppercase font-bold w-full p-3 text-white rounded-lg" />
+            <input type="submit" value="Crear element" style="background:#00abaa;" class=" hover:bg-sky-700 transition-colors cursor-pointer uppercase font-bold w-full p-3 text-white rounded-lg" />
         </form>
         <!-- IMATGE -->
         <div class="mb-5 mt-5">
