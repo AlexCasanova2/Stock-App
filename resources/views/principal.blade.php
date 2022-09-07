@@ -88,12 +88,19 @@ Inici
                                         <div class="mr-2">
                                             <!--<img class="w-6 h-6 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg"/>-->
                                         </div>
-                                        <span>{{$element->name}}</span>
+                                        <a class="hover:underline capitalize" href="{{route('element.show', $element)}}">
+                                            <span>{{$element->name}}</span>
+                                        </a>
                                     </div>
                                 </td>
                                 <td class="py-3 px-6 text-center">
                                     <div class="flex items-center justify-center">
-                                        {{$element->client->name ?? 'No hi ha client'}}
+                                        @if ($element->client)
+                                        <a class="hover:underline" href="{{route('client.show', $element->client->id)}}">{{$element->client->name ?? 'No hi ha client'}}</a>
+                                        @else
+                                        <span>No hi ha client</span>
+
+                                        @endif
                                         <!--<img class="w-6 h-6 rounded-full border-gray-200 border transform hover:scale-125" src="https://randomuser.me/api/portraits/men/1.jpg"/>
                                         <img class="w-6 h-6 rounded-full border-gray-200 border -m-1 transform hover:scale-125" src="https://randomuser.me/api/portraits/women/2.jpg"/>
                                         <img class="w-6 h-6 rounded-full border-gray-200 border -m-1 transform hover:scale-125" src="https://randomuser.me/api/portraits/men/3.jpg"/>
@@ -112,38 +119,84 @@ Inici
                                 <td class="py-3 px-6 text-center">
                                     <div class="flex item-center justify-center">
                                         <div class="w-4 mr-2 transform hover:text-blue-400 hover:scale-110">
-                                            <a href="{{route('element.show', $element->id)}}">
+                                            <a href="{{route('element.show', $element)}}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                 </svg>
                                             </a>
-                                            
                                         </div>
+                                        @if (auth()->user()->role == 1)
                                         <div class="w-4 mr-2 transform hover:text-blue-400 hover:scale-110">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                            <a href="{{route('element.edit', $element->id)}}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                        
+                                        <div class="w-4 mr-2 transform hover:text-blue-400 hover:scale-110" id="delete">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="cursor: pointer;">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                             </svg>
-                                        </div>
-                                        <div class="w-4 mr-2 transform hover:text-blue-400 hover:scale-110">
-                                            <form method="POST" action="{{route('element.destroy', $element->id)}}">
+                                            <!--<form method="POST" action="{{route('element.destroy', $element->id)}}">
                                                 @method('DELETE')
                                                 @csrf
                                                 <label>
                                                     <input type="submit" value="one" style="display:none;">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="cursor: pointer;">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                     </svg>
                                                 </label>
-                                               
-                                                
-                                            </form>
+                                            </form>-->
                                         </div>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
+                            @if($elements)
+                            <!-- This example requires Tailwind CSS v2.0+ -->
+                            <div class="relative z-10 notification" aria-labelledby="modal-title" role="dialog" aria-modal="true" class="menu" style="display:none;">
+                                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+                                <div class="fixed inset-0 z-10 overflow-y-auto">
+                                  <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                                    <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                                      <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                        <div class="sm:flex sm:items-start">
+                                          <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                                            <!-- Heroicon name: outline/exclamation-triangle -->
+                                            <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 10.5v3.75m-9.303 3.376C1.83 19.126 2.914 21 4.645 21h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 4.88c-.866-1.501-3.032-1.501-3.898 0L2.697 17.626zM12 17.25h.007v.008H12v-.008z" />
+                                            </svg>
+                                          </div>
+                                          <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                            <h3 class="text-lg font-medium leading-6 text-gray-900" id="modal-title">Segur que vols eliminar <span class="capitalize">{{$element->name}}</span>?</h3>
+                                            <div class="mt-2">
+                                              <p class="text-sm text-gray-500">Esteu segur que voleu eliminar l'element? Totes les dades s'eliminaran permanentment. Aquesta acció no es pot desfer.</p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                                        <form method="POST" action="{{route('element.destroy', $element->id)}}">
+                                            @method('DELETE')
+                                            @csrf
+                                            <label style="cursor:pointer;">
+                                                <!--<input type="submit" value="one" style="display:none;">-->
+                                                <button type="submit" value="one" class="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm">Eliminar</button>
+                                            </label>
+                                        </form>
+                                        <!--<button type="button" class="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm">Eliminar</button>-->
+                                        <a id="cancelar">
+                                            <button  type="button" class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancel·lar</button>
+                                        </a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              @endif
                             @endforeach
-    
                         </tbody>
                     </table>
                 </div>
@@ -151,4 +204,15 @@ Inici
         </div>
     </div>
     @endif
+    
+    <script>
+        $("#cancelar").click(function () {
+            console.log('cancelar');
+            $(".notification").css("display", "none");
+      });
+        $("#delete").click(function () {
+            console.log('click');
+            $(".notification").css("display", "block");
+      });
+    </script>
 @endsection

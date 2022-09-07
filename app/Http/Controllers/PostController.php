@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Element;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -15,11 +16,11 @@ class PostController extends Controller
 
     public function index(User $user)
     {
-        $posts = Post::where('user_id', $user->id)->get();
+        $elements = Element::where('user_id', $user->id)->get();
 
         return view('dashboard', [
             'user' => $user,
-            'posts'  => $posts
+            'elements'  => $elements,
         ]);
     }
 

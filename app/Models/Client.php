@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Element;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Client extends Model
 {
@@ -18,5 +19,9 @@ class Client extends Model
     //Relacion con el usuario ya que solo puede haber uno por cada post
     public function user(){
         return $this->belongsTo(User::class)->select(['name', 'email']);
+    }
+
+    public function element(){
+        return $this->hasMany(Element::class);
     }
 }

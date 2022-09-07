@@ -1,8 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Element;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -40,37 +40,72 @@ class ElementController extends Controller
             'area' => 'required',
             'client' => 'required'
         ]);
-
-        Element::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'imagen' => $request->imagen,
-            'stock' => $request->stock,
-            'estat' => $request->estat,
-            'ample' => $request->ample,
-            'llarg' => $request->llarg,
-            'alçada' => $request->alçada,
-            'adquisicio' => $request->adquisicio,
-            'proveidor_id' => $request->proveidor,
-            'client_id' => $request->client,
-            'area_id' => $request->area,
-            'user_id' => auth()->user()->id
-        ]);
+        
+        if($request->imagen == null){
+            Element::create([
+                'name' => $request->name,
+                'description' => $request->description,
+                'imagen' => '',
+                'stock' => $request->stock,
+                'estat' => $request->estat,
+                'ample' => $request->ample,
+                'llarg' => $request->llarg,
+                'alçada' => $request->alçada,
+                'adquisicio' => $request->adquisicio,
+                'proveidor_id' => $request->proveidor,
+                'client_id' => $request->client,
+                'area_id' => $request->area,
+                'user_id' => auth()->user()->id
+            ]);
+        }else{
+            Element::create([
+                'name' => $request->name,
+                'description' => $request->description,
+                'imagen' => $request->imagen,
+                'stock' => $request->stock,
+                'estat' => $request->estat,
+                'ample' => $request->ample,
+                'llarg' => $request->llarg,
+                'alçada' => $request->alçada,
+                'adquisicio' => $request->adquisicio,
+                'proveidor_id' => $request->proveidor,
+                'client_id' => $request->client,
+                'area_id' => $request->area,
+                'user_id' => auth()->user()->id
+            ]);
+        }    
 
         return redirect()->route('element.create');
     }
 
-    public function show(){
-        $element1 = Element::with('proveidor', 'client', 'area')->get();
+    public function show(User $user, Element $element){
         return view('element.show', [
-            'element' => $element1
+            'element' => $element,
+            'user' => $user
         ]);
     }
 
     public function destroy(Element $element){
         $element->delete();
-
         return redirect()->route('principal');
     }
 
+    public function edit(Element $element){
+        $areas = DB::table('areas')->select('id', 'name')->get();
+        $clients = DB::table('clients')->select('id', 'name')->get();
+        $estats = DB::table('estats')->select('id','name')->get();
+        $proveidors = DB::table('proveidors')->select('id', 'name')->get();
+        return view('element.edit',[
+            'areas' => $areas,
+            'clients' => $clients,
+            'estats' => $estats,
+            'proveidors' => $proveidors,
+            'element' => $element
+        ]);
+    }
+    public function pdf(Element $element){
+        return view('element.pdf', [
+            'element' => $element
+        ]);
+    }
 }

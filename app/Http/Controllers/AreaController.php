@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Area;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AreaController extends Controller
 {
@@ -12,7 +13,10 @@ class AreaController extends Controller
     }
 
     public function create(){
-        return view('area.create');
+        $areas = DB::table('areas')->select('id', 'name')->get();
+        return view('area.create', [
+            'areas' => $areas
+        ]);
     }
 
     public function store(Request $request){
@@ -29,4 +33,11 @@ class AreaController extends Controller
 
         return redirect()->route('area.create');
     }
+
+    public function destroy(Area $area){
+        $area->delete();
+
+        return redirect()->route('area.create');
+    }
+
 }

@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Client;
 use App\Models\Proveidor;
+use App\Models\Comentario;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -39,5 +41,11 @@ class Element extends Model
     }
     public function client(){
         return $this->belongsTo(Client::class)->select(['id', 'name']);
+    }
+    public function roles(){
+        return $this->belongsTo(Roles::class)->select(['id', 'name']);
+    }
+    public function comentarios(){
+        return $this->hasMany(Comentario::class);
     }
 }
