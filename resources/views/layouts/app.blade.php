@@ -8,6 +8,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         @vite('resources/css/app.css')
         @vite('resources/js/app.js')
+        @livewireStyles
     </head>
     <body class="antialiased bg-gray-100">
         <header class="p-5 border-b bg-white shadow">
@@ -68,5 +69,6 @@
         <footer class="mt-10 text-center p-5 uppercase text-gray-800 font-bold">
             <!-- TandemStock - Todos los derechos reservados {{now()->year}} -->
         </footer>
+        @livewireScripts
     </body>
 </html>

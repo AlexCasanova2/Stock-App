@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('title')
-Client
+Proveidor
 @endsection
 
 @section('content')
-<h2 class="font-black text-center text-3xl mb-10 capitalize">Elements: {{$client->name}}</h2>
+<h2 class="font-black text-center text-3xl mb-10 capitalize">Proveidor: {{$proveidor->name}}</h2>
 
 <div class="overflow-x-auto">
     <div class="bg-gray-100 flex items-center w-full justify-center font-sans overflow-hidden">
@@ -30,17 +30,17 @@ Client
                                 </div>
                             </td>
                             <td class="py-3 px-6 text-left">
-                                @if ($element->stock <= 100)
+                                @if ($proveidor->stock <= 100)
                                     <span class="bg-red-500 text-white py-1 px-3 rounded-full text-xs">{{$element->stock}}</span>
                                 @endif
-                                @if ($element->stock > 100)
+                                @if ($proveidor->stock > 100)
                                     <span class="bg-green-500 text-white py-1 px-3 rounded-full text-xs">{{$element->stock}}</span>
                                 @endif
                             </td>
                             <td class="py-3 px-6 text-left">
                                 <div class="flex item-left justify-left">
                                     <div class="w-4 mr-2 transform hover:text-blue-400 hover:scale-110">
-                                        <a href="{{route('element.show', $element)}}">
+                                        <a href="{{route('proveidor.show', $proveidor)}}">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -73,6 +73,7 @@ Client
                             </td>
                         </tr>
                         @endforeach
+
                     </tbody>
                 </table>
             </div>

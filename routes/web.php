@@ -57,10 +57,13 @@ Route::get('/element/create', [ElementController::class , 'create'])->name('elem
 Route::post('/element', [ElementController::class, 'store'])->name('element.store');
 Route::get('/element/{element}', [ElementController::class, 'show'])->name('element.show');
 Route::delete('element/{element}', [ElementController::class, 'destroy'])->name('element.destroy');
-Route::get('{element}/editar}', [ElementController::class, 'edit'])->name('element.edit');
+Route::get('{element}/editar', [ElementController::class, 'edit'])->name('element.edit');
+Route::post('/editar-element', [ElementController::class, 'updateElement'])->name('element.update');
+Route::get('draft/{element}', [ElementController::class, 'setDraft'])->name('element.setDraft');
 
 Route::get('/proveidor/create', [ProveidorController::class, 'create'])->name('proveidor.create');
 Route::post('/proveidor', [ProveidorController::class, 'store'])->name('proveidor.store');
+Route::get('/proveidor/{proveidor}', [ProveidorController::class, 'show'])->name('proveidor.show');
 Route::delete('proveidor/{proveidor}', [ProveidorController::class, 'destroy'])->name('proveidor.destroy');
 
 Route::get('/role/create', [RolesController::class , 'create'])->name('role.create');
@@ -70,3 +73,4 @@ Route::post('element/{element}', [ComentarioController::class, 'store'])->name('
 //Route::delete('comentario/{comentario}', [ComentarioController::class, 'destroy'])->name('comentario.destroy');
 
 Route::get('element/{element}/pdf', [ElementController::class, 'pdf'])->name('element.pdf');
+Route::get('/element/search', [ElementController::class, 'search'])->name('element.search');

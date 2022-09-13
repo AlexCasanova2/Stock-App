@@ -18,7 +18,7 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
       </svg>
       &nbsp;
-       Descarregar PDF</a>
+       Generar PDF</a>
     </div>
 </div>
 <br>
@@ -29,6 +29,19 @@
     </div>
     <div class="border-t border-gray-200">
       <dl>
+        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">Imatge</dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+            @if($element->imagen == null)
+              No hi ha cap imatge
+            @endif
+            @if ($element->imagen)
+              <a href="{{asset('uploads') . '/' . $element->imagen}}" target="_blank">
+                <img src="{{asset('uploads') . '/' . $element->imagen}}" style="width:150px;height:150px;">
+              </a>
+            @endif
+          </dd>
+        </div>
         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
           <dt class="text-sm font-medium text-gray-500">Id</dt>
           <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{$element->id}}</dd>
@@ -54,16 +67,12 @@
           <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{$element->stock}}</dd>
         </div>
         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">Alçada</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{$element->alçada}}cm</dd>
+          <dt class="text-sm font-medium text-gray-500">Caracteristiques</dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{$element->caracteristiques}}</dd>
         </div>
         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm font-medium text-gray-500">Amplada</dt>
-            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{$element->ample}}cm</dd>
-        </div>
-        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm font-medium text-gray-500">Llargada</dt>
-            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{$element->llarg}}cm</dd>
+            <dt class="text-sm font-medium text-gray-500">Tipus</dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{$element->tipus}}</dd>
         </div>
         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt class="text-sm font-medium text-gray-500">Adquisició</dt>
@@ -71,7 +80,15 @@
         </div>
         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt class="text-sm font-medium text-gray-500">Proveidor</dt>
-            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{$element->proveidor->name ?? 'No hi ha cap proveidor assignat'}}</dd>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+              @if(is_null($element->proveidor))
+                No hi ha cap client assignat
+                @else
+                <a class="hover:underline" href="{{route('proveidor.show', $element->proveidor->id)}}">
+                  {{$element->proveidor->name ?? 'No hi ha cap client assignat'}}
+                </a>
+              @endif
+            </dd>
         </div>
         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt class="text-sm font-medium text-gray-500">Area</dt>
@@ -79,7 +96,15 @@
         </div>
         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt class="text-sm font-medium text-gray-500">Client</dt>
-            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{{$element->client->name ?? 'No hi ha cap client assignat'}}</dd>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+              @if(is_null($element->client))
+                No hi ha cap client assignat
+                @else
+                <a class="hover:underline" href="{{route('client.show', $element->client->id)}}">
+                  {{$element->client->name ?? 'No hi ha cap client assignat'}}
+                </a>
+              @endif
+            </dd>
         </div>
         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
           <dt class="text-sm font-medium text-gray-500">Imatge</dt>

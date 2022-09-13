@@ -1,10 +1,14 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Element;
+use PDF;
+use Illuminate\Support\Str;
 use App\Models\User;
+use App\Models\Element;
+use App\Models\Proveidor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\Facades\Image;
 
 class ElementController extends Controller
 {
@@ -31,10 +35,9 @@ class ElementController extends Controller
             'description' => 'required|max:255',
             'imagen' => '',
             'stock' => 'required|numeric',
-            'estat' => 'required',
-            'ample' => 'required|numeric',
-            'llarg' => 'required|numeric',
-            'alçada' => 'required|numeric',
+            'estat' => '',
+            'caracteristiques' => 'max:255',
+            'tipus' => 'required',
             'adquisicio' => 'required',
             'proveidor' => 'required',
             'area' => 'required',
@@ -47,10 +50,9 @@ class ElementController extends Controller
                 'description' => $request->description,
                 'imagen' => '',
                 'stock' => $request->stock,
-                'estat' => $request->estat,
-                'ample' => $request->ample,
-                'llarg' => $request->llarg,
-                'alçada' => $request->alçada,
+                'estat' => 'disponible',
+                'caracteristiques' => $request->caracteristiques,
+                'tipus' => $request->tipus,
                 'adquisicio' => $request->adquisicio,
                 'proveidor_id' => $request->proveidor,
                 'client_id' => $request->client,
@@ -63,10 +65,9 @@ class ElementController extends Controller
                 'description' => $request->description,
                 'imagen' => $request->imagen,
                 'stock' => $request->stock,
-                'estat' => $request->estat,
-                'ample' => $request->ample,
-                'llarg' => $request->llarg,
-                'alçada' => $request->alçada,
+                'estat' => 'disponible',
+                'caracteristiques' => $request->caracteristiques,
+                'tipus' => $request->tipus,
                 'adquisicio' => $request->adquisicio,
                 'proveidor_id' => $request->proveidor,
                 'client_id' => $request->client,
@@ -83,6 +84,12 @@ class ElementController extends Controller
             'element' => $element,
             'user' => $user
         ]);
+    }
+
+    public function setDraft(Element $element){
+        $element->estat = 'borrat';
+        $element->save();
+        return redirect()->route('principal');
     }
 
     public function destroy(Element $element){
@@ -103,9 +110,66 @@ class ElementController extends Controller
             'element' => $element
         ]);
     }
-    public function pdf(Element $element){
-        return view('element.pdf', [
-            'element' => $element
+
+    public function updateElement(Request $request){
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'description' => 'required|max:255',
+            'imagen' => '',
+            'stock' => 'required|numeric',
+            'estat' => '',
+            'caracteristiques' => 'max:255',
+            'tipus' => 'required',
+            'adquisicio' => 'required',
+            'proveidor' => 'required',
+            'area' => 'required',
+            'client' => 'required'
         ]);
+
+        if($request->imagen){
+            $imagen = $request->file('file');
+            $nombreImagen = Str::uuid() . "." . $imagen->extension();
+            $imagenServidor = Image::make($imagen);
+            //Ajustar la imagen a un tamaño predefinido
+            $imagenServidor->fit(1000, 1000);
+
+            //Almacenar la imagen
+            $imagenPath = public_path('uploads') . '/' . $nombreImagen;
+            $imagenServidor->save($imagenPath);
+        }
+        
+        $element = Element::find($request->id);
+        $element->name = $request->name;
+        $element->description = $request->description;
+        $element->imagen = $request->imagen ?? '';
+        $element->stock = $request->stock;
+        $element->estat = $request->estat;
+        $element->caracteristiques = $request->caracteristiques;
+        $element->tipus = $request->tipus;
+        $element->adquisicio = $request->adquisicio;
+        $element->proveidor_id = $request->proveidor;
+        $element->client_id = $request->client;
+        $element->area_id = $request->area;
+
+        $element->save();
+
+        return redirect()->route('element.show', $element->id);
+    }
+
+    public function search(Request $request){
+        //$input = $request->all();
+        dd('hola');
+
+        
+    }
+
+    public function pdf(Element $element){
+
+        $pdf = PDF::loadView('element.pdf', ['element' => $element]);
+        return $pdf->stream();
+
+        /*return view('element.pdf', [
+            'element' => $element
+        ]);*/
     }
 }

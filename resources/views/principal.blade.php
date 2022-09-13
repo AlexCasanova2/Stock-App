@@ -47,6 +47,28 @@ Inici
         <span style="background-color:#00abaa;" class="text-white py-1 px-3 rounded-full text-xs"><a href="{{route('proveidor.create')}}">Crear proveidor</a></span>
         <span style="background-color:#00abaa;" class="text-white py-1 px-3 rounded-full text-xs"><a href="{{route('register')}}">Crear usuari</a></span>
     </div>
+    <!-- FORMULARIO DE BUSQUEDA -->
+    <div class="items-start w-full justify-start mt-5">
+        <form method="get" action="{{route('element.search')}}" novalidate>
+            @csrf
+            <div class="grid items-start w-full justify-start grid-cols-3 mt-5">
+                <div>
+                    <label for="name">Terme de cerca</label>
+                    
+                    <!-- NOM -->
+                    <div class="mb-5">
+                        <!-- <label for="name" class="mb-2 block uppercase text-gray-500 font-bold">Nom</label>-->
+                        <input id="name" name="name" type="text" placeholder="Terme de cerca" class="border p-3 w-full rounded-lg @error('name') border-red-500 @enderror" value={{old('name')}}>
+                        @error('name')
+                            <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
+                        @enderror
+
+                    </div>
+                </div>
+            </div>
+            <input type="submit" value="Cerca" style="background:#00abaa;" class=" hover:bg-sky-700 transition-colors cursor-pointer uppercase font-bold w-1/4 p-3 text-white rounded-lg" />
+        </form>
+    </div>
     @endif
     @if ($elements->isEmpty())
     <br>
@@ -80,7 +102,7 @@ Inici
                                                 <path fill="#80deea" d="M24,34C11.1,34,1,29.6,1,24c0-5.6,10.1-10,23-10c12.9,0,23,4.4,23,10C47,29.6,36.9,34,24,34z M24,16	c-12.6,0-21,4.1-21,8c0,3.9,8.4,8,21,8s21-4.1,21-8C45,20.1,36.6,16,24,16z"></path><path fill="#80deea" d="M15.1,44.6c-1,0-1.8-0.2-2.6-0.7C7.6,41.1,8.9,30.2,15.3,19l0,0c3-5.2,6.7-9.6,10.3-12.4c3.9-3,7.4-3.9,9.8-2.5	c2.5,1.4,3.4,4.9,2.8,9.8c-0.6,4.6-2.6,10-5.6,15.2c-3,5.2-6.7,9.6-10.3,12.4C19.7,43.5,17.2,44.6,15.1,44.6z M32.9,5.4	c-1.6,0-3.7,0.9-6,2.7c-3.4,2.7-6.9,6.9-9.8,11.9l0,0c-6.3,10.9-6.9,20.3-3.6,22.2c1.7,1,4.5,0.1,7.6-2.3c3.4-2.7,6.9-6.9,9.8-11.9	c2.9-5,4.8-10.1,5.4-14.4c0.5-4-0.1-6.8-1.8-7.8C34,5.6,33.5,5.4,32.9,5.4z"></path><path fill="#80deea" d="M33,44.6c-5,0-12.2-6.1-17.6-15.6C8.9,17.8,7.6,6.9,12.5,4.1l0,0C17.4,1.3,26.2,7.8,32.7,19	c3,5.2,5,10.6,5.6,15.2c0.7,4.9-0.3,8.3-2.8,9.8C34.7,44.4,33.9,44.6,33,44.6z M13.5,5.8c-3.3,1.9-2.7,11.3,3.6,22.2	c6.3,10.9,14.1,16.1,17.4,14.2c1.7-1,2.3-3.8,1.8-7.8c-0.6-4.3-2.5-9.4-5.4-14.4C24.6,9.1,16.8,3.9,13.5,5.8L13.5,5.8z"></path><circle cx="24" cy="24" r="4" fill="#80deea"></circle>
                                             </svg>-->
                                         </div>
-                                        <span class="font-medium">{{$element->area->name ?? 'No hi ha area'}}</span>
+                                        <span>{{$element->area->name ?? 'No hi ha area'}}</span>
                                     </div>
                                 </td>
                                 <td class="py-3 px-6 text-left">
@@ -178,14 +200,17 @@ Inici
                                         </div>
                                       </div>
                                       <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                                        <form method="POST" action="{{route('element.destroy', $element->id)}}">
+                                        <!--<form method="POST" action="{{route('element.destroy', $element->id)}}">
                                             @method('DELETE')
                                             @csrf
                                             <label style="cursor:pointer;">
-                                                <!--<input type="submit" value="one" style="display:none;">-->
+                                                <input type="submit" value="one" style="display:none;">
                                                 <button type="submit" value="one" class="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm">Eliminar</button>
                                             </label>
-                                        </form>
+                                        </form>-->
+                                            <!-- Solo cambio el estado del elemento -->
+                                            <a href="{{route('element.setDraft', $element)}}" value="one" class="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm">Borrar</a>
+                                        
                                         <!--<button type="button" class="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm">Eliminar</button>-->
                                         <a id="cancelar">
                                             <button  type="button" class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancel·lar</button>

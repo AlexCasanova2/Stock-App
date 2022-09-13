@@ -13,8 +13,9 @@ Editar
       </svg> Tornar a l'inici</a></div>
 <div class="md:flex md:justify-center md:gap-10 md:items-center p-5">
     <div class="md:w-6/12 bg-white p-6 rounded-lg shadow-xl">
-        <form action="{{route('element.store')}}" method="POST" novalidate>
+        <form action="{{route('element.update' , $element)}}" method="POST" novalidate>
             @csrf
+            <input type="hidden" name="id" value="{{$element->id}}" />
             <!-- NOM -->
             <div class="mb-5">
                 <label for="name" class="mb-2 block uppercase text-gray-500 font-bold">Nom</label>
@@ -39,30 +40,46 @@ Editar
                     <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                 @enderror
             </div>
-            <!-- AMPLE -->
+            <!-- CARACTERISTIQUES -->
             <div class="mb-5">
+                <label for="caracteristiques" class="mb-2 block uppercase text-gray-500 font-bold">Caracteristiques</label>
+                <textarea id="caracteristiques" name="caracteristiques" placeholder="Caracteristiques" class="border p-3 w-full rounded-lg @error('caracteristiques') border-red-500 @enderror">{{$element->caracteristiques}}</textarea>
+                @error('caracteristiques')
+                    <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
+                @enderror
+            </div>
+            <!-- TIPUS -->
+            <div class="mb-5">
+                <label for="tipus" class="mb-2 block uppercase text-gray-500 font-bold">Tipus</label>
+                <input id="tipus" name="tipus" type="text" placeholder="Tipus" class="border p-3 w-full rounded-lg @error('tipus') border-red-500 @enderror" value={{$element->tipus}}>
+                @error('tipus')
+                    <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
+                @enderror
+            </div>
+            <!-- AMPLE -->
+            <!-- <div class="mb-5">
                 <label for="ample" class="mb-2 block uppercase text-gray-500 font-bold">Ample</label>
                 <input id="ample" name="ample" type="number" placeholder="Ample" class="border p-3 w-full rounded-lg @error('ample') border-red-500 @enderror" value={{$element->ample}} >
                 @error('ample')
                     <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                 @enderror
-            </div>
+            </div>-->
             <!-- LLARG -->
-            <div class="mb-5">
+            <!-- <div class="mb-5">
                 <label for="llarg" class="mb-2 block uppercase text-gray-500 font-bold">Llarg</label>
                 <input id="llarg" name="llarg" type="number" placeholder="Llarg" class="border p-3 w-full rounded-lg @error('llarg') border-red-500 @enderror" value={{$element->llarg}} >
                 @error('llarg')
                     <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                 @enderror
-            </div>
+            </div>-->
             <!-- ALÇADA -->
-            <div class="mb-5">
+            <!-- <div class="mb-5">
                 <label for="alçada" class="mb-2 block uppercase text-gray-500 font-bold">Alçada</label>
                 <input id="alçada" name="alçada" type="number" placeholder="Alçada" class="border p-3 w-full rounded-lg @error('alçada') border-red-500 @enderror" value={{$element->alçada}} >
                 @error('alçada')
                     <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                 @enderror
-            </div>
+            </div>-->
             <!-- Adquisició -->
             <div class="mb-5">
                 <label for="adquisicio" class="mb-2 block uppercase text-gray-500 font-bold">Adquisicio</label>

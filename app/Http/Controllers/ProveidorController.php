@@ -36,6 +36,15 @@ class ProveidorController extends Controller
         return redirect()->route('proveidor.create');
     }
 
+    //Seleccionamos todos los elementos que han sido creados por el cliente
+    public function show(Proveidor $proveidor, Element $element){
+        $elements = Element::where('proveidor_id', $proveidor->id)->get();
+        return view('proveidor.show', [
+            'proveidor' => $proveidor,
+            'elements' => $elements
+        ]);
+    }
+
     public function destroy(Proveidor $proveidor){
         $proveidor->delete();
 

@@ -43,30 +43,46 @@ Crear element
                     <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                 @enderror
             </div>
-            <!-- AMPLE -->
+            <!-- CARACTERISTIQUES -->
             <div class="mb-5">
+                <label for="caracteristiques" class="mb-2 block uppercase text-gray-500 font-bold">Caracteristiques</label>
+                <textarea id="caracteristiques" name="caracteristiques" placeholder="Descripció" class="border p-3 w-full rounded-lg @error('caracteristiques') border-red-500 @enderror">{{old('caracteristiques')}}</textarea>
+                @error('caracteristiques')
+                    <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
+                @enderror
+            </div>
+            <!-- TIPUS -->
+            <div class="mb-5">
+                <label for="tipus" class="mb-2 block uppercase text-gray-500 font-bold">Tipus</label>
+                <input id="tipus" name="tipus" type="text" placeholder="Tipus" class="border p-3 w-full rounded-lg @error('tipus') border-red-500 @enderror" value={{old('tipus')}}>
+                @error('tipus')
+                    <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
+                @enderror
+            </div>
+            <!-- AMPLE -->
+            <!--<div class="mb-5">
                 <label for="ample" class="mb-2 block uppercase text-gray-500 font-bold">Ample</label>
                 <input id="ample" name="ample" type="number" placeholder="Ample" class="border p-3 w-full rounded-lg @error('ample') border-red-500 @enderror" {{old('ample')}} >
                 @error('ample')
                     <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                 @enderror
-            </div>
+            </div>-->
             <!-- LLARG -->
-            <div class="mb-5">
+            <!-- <div class="mb-5">
                 <label for="llarg" class="mb-2 block uppercase text-gray-500 font-bold">Llarg</label>
                 <input id="llarg" name="llarg" type="number" placeholder="Llarg" class="border p-3 w-full rounded-lg @error('llarg') border-red-500 @enderror" {{old('llarg')}} >
                 @error('llarg')
                     <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                 @enderror
-            </div>
+            </div>-->
             <!-- ALÇADA -->
-            <div class="mb-5">
+            <!-- <div class="mb-5">
                 <label for="alçada" class="mb-2 block uppercase text-gray-500 font-bold">Alçada</label>
                 <input id="alçada" name="alçada" type="number" placeholder="Alçada" class="border p-3 w-full rounded-lg @error('alçada') border-red-500 @enderror" {{old('alçada')}} >
                 @error('alçada')
                     <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                 @enderror
-            </div>
+            </div>-->
             <!-- Adquisició -->
             <div class="mb-5">
                 <label for="adquisicio" class="mb-2 block uppercase text-gray-500 font-bold">Adquisició</label>
@@ -114,7 +130,7 @@ Crear element
                 @enderror
             </div>
             <!-- ESTAT -->
-            <div class="mb-5">
+            <!-- <div class="mb-5">
                 <label for="estat" class="mb-2 block uppercase text-gray-500 font-bold">Estat</label>
                 <select name="estat" class="border p-3 w-full rounded-lg @error('estat') border-red-500 @enderror" {{old('estat')}}>
                     @if ($estats->isEmpty())
@@ -130,7 +146,7 @@ Crear element
                 @error('estat')
                     <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                 @enderror
-            </div>
+            </div>-->
             <!-- PROVEIDOR -->
             <div class="mb-5">
                 <label for="proveidor" class="mb-2 block uppercase text-gray-500 font-bold">Proveïdor</label>

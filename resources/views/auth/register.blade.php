@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-@auth
+
 <h2 class="font-black text-center text-3xl mb-10 capitalize">@yield('title')</h2>
 
 <div><a href="/">
@@ -64,5 +64,5 @@
             </form>
         </div>
     </div>
-    @endauth
+    
 @endsection

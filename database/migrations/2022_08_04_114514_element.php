@@ -20,9 +20,8 @@ return new class extends Migration
             $table->string('imagen');
             $table->integer('stock');
             $table->string('estat');
-            $table->decimal('ample');
-            $table->decimal('llarg');
-            $table->decimal('alçada');
+            $table->string('caracteristiques');
+            $table->string('tipus');
             $table->date('adquisicio');
             $table->foreignId('proveidor_id');
             $table->foreignId('client_id');
