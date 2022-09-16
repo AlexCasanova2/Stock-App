@@ -180,5 +180,9 @@ Crear client
             console.log('click');
             $(".notification").css("display", "block");
       });
+      $("#close").click(function () {
+            console.log('cancelar');
+            $(".notification").css("display", "none");
+      });
     </script>
 @endsection

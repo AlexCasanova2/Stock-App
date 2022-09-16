@@ -2,12 +2,12 @@
 namespace App\Http\Controllers;
 
 use PDF;
-use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Element;
-use App\Models\Proveidor;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Intervention\Image\Facades\Image;
 
 class ElementController extends Controller
@@ -89,12 +89,15 @@ class ElementController extends Controller
     public function setDraft(Element $element){
         $element->estat = 'borrat';
         $element->save();
-        return redirect()->route('principal');
+        return back()->with('mensaje', 'Element esborrat correctament');
+        //return redirect()->route('principal');
     }
 
     public function destroy(Element $element){
         $element->delete();
-        return redirect()->route('principal');
+        //imprimir mensaje
+        return back()->with('mensaje', 'Element esborrat correctament');
+        //return redirect()->route('principal');
     }
 
     public function edit(Element $element){
@@ -156,17 +159,14 @@ class ElementController extends Controller
         return redirect()->route('element.show', $element->id);
     }
 
-    public function search(Request $request){
-        //$input = $request->all();
-        dd('hola');
-
-        
+    public function mailStock(){
+        Mail::to('alex@tandemprojects.cat')->send(new \App\Mail\StockAviso);
     }
 
     public function pdf(Element $element){
 
         $pdf = PDF::loadView('element.pdf', ['element' => $element]);
-        return $pdf->stream();
+        return $pdf->stream($element->id."-".$element->name.".pdf");
 
         /*return view('element.pdf', [
             'element' => $element

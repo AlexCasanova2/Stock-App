@@ -6,7 +6,14 @@ Client
 
 @section('content')
 <h2 class="font-black text-center text-3xl mb-10 capitalize">Elements: {{$client->name}}</h2>
-
+<div class="text-right">
+    <a href="{{route('client.pdf', $client)}}" target="_blank" style="background:#00abaa;" class="inline-flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+    </svg>
+    &nbsp;
+     Generar PDF</a>
+  </div>
 <div class="overflow-x-auto">
     <div class="bg-gray-100 flex items-center w-full justify-center font-sans overflow-hidden">
         <div class="w-full lg:w-12/12">

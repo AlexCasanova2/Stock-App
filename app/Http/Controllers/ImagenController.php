@@ -14,7 +14,7 @@ class ImagenController extends Controller
         $nombreImagen = Str::uuid() . "." . $imagen->extension();
         $imagenServidor = Image::make($imagen);
         //Ajustar la imagen a un tamaño predefinido
-        $imagenServidor->fit(1000, 1000);
+        $imagenServidor->fit(3000, 3000);
 
         //Almacenar la imagen
         $imagenPath = public_path('uploads') . '/' . $nombreImagen;

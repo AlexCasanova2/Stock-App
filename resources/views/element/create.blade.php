@@ -46,7 +46,7 @@ Crear element
             <!-- CARACTERISTIQUES -->
             <div class="mb-5">
                 <label for="caracteristiques" class="mb-2 block uppercase text-gray-500 font-bold">Caracteristiques</label>
-                <textarea id="caracteristiques" name="caracteristiques" placeholder="Descripció" class="border p-3 w-full rounded-lg @error('caracteristiques') border-red-500 @enderror">{{old('caracteristiques')}}</textarea>
+                <textarea id="caracteristiques" name="caracteristiques" placeholder="Caracteristiques" class="border p-3 w-full rounded-lg @error('caracteristiques') border-red-500 @enderror">{{old('caracteristiques')}}</textarea>
                 @error('caracteristiques')
                     <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>
                 @enderror
@@ -103,7 +103,6 @@ Crear element
                             <option value="{{$area->id}}">{{$area->name}}</option>
                         @endforeach
                     @endif
-                    
                 </select>
                 @error('area')
                     <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>

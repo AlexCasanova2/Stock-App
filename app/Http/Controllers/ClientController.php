@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
+use Illuminate\Support\Str;
 use App\Models\Client;
 use App\Models\Element;
 use Illuminate\Http\Request;
@@ -52,6 +54,19 @@ class ClientController extends Controller
 
         //return redirect()->route('client.create');
         return back()->with('mensaje', 'Client esborrat correctament');
+    }
 
+    public function pdf(Client $client){
+        $elements = Element::where('client_id', $client->id)->get();
+
+        $pdf = PDF::loadView('client.pdf', [
+            'client' => $client,
+            'elements' => $elements
+        ]);
+        return $pdf->stream($client->id."-".$client->name.".pdf");
+
+        /*return view('element.pdf', [
+            'element' => $element
+        ]);*/
     }
 }

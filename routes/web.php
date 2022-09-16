@@ -1,19 +1,20 @@
 <?php
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AreaController;
-use App\Http\Controllers\BibliotecaController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\ClientController;
-use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ElementController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PrincipalController;
 use App\Http\Controllers\ProveidorController;
+use App\Http\Controllers\BibliotecaController;
+use App\Http\Controllers\ComentarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,8 @@ use App\Http\Controllers\ProveidorController;
 Route::get('/', [PrincipalController::class, 'index'])->name('principal');
 
 Route::get('/biblioteca', [BibliotecaController::class, 'index'])->name('biblioteca');
+Route::get('/buscar', [PrincipalController::class, 'buscar'])->name('buscar');
+Route::get('/enviar-mail', [ElementController::class, 'mailStock'])->name('emails.stock');
 
 Route::get('/registro', [RegisterController::class, 'index'])->name('register');
 Route::post('/registro', [RegisterController::class, 'store']);
@@ -73,4 +76,4 @@ Route::post('element/{element}', [ComentarioController::class, 'store'])->name('
 //Route::delete('comentario/{comentario}', [ComentarioController::class, 'destroy'])->name('comentario.destroy');
 
 Route::get('element/{element}/pdf', [ElementController::class, 'pdf'])->name('element.pdf');
-Route::get('/element/search', [ElementController::class, 'search'])->name('element.search');
+Route::get('client/{client}/pdf', [ClientController::class, 'pdf'])->name('client.pdf');
