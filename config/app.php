@@ -196,6 +196,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Intervention\Image\ImageServiceProvider::class,
+        Venturecraft\Revisionable\RevisionableServiceProvider::class,
 
     ],
 

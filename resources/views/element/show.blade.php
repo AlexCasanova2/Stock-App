@@ -140,7 +140,50 @@
       </dl>
     </div>
 </div>
-<div class="md:w-2/2 p-5 overflow-hidden">
+
+<div class="mt-5 mb-4">
+  <!--<h3 class="font-medium leading-tight text-2xl mt-5 mb-7">Historial de canvis</h3>-->
+  <p class="text-xl font-bold text-center mt-10 mb-7">Historial de canvis</p>
+  @foreach($element->revisionHistory as $history )
+    <!--<li>{{ $history->userResponsible()->name }} ha canviat {{ $history->fieldName() }} de {{ $history->oldValue() }} a {{ $history->newValue() }}</li>-->
+
+<!-- <div class="p-5 mb-4 bg-gray-50 rounded-lg border border-gray-100">
+  <time class="font-semibold text-gray-900 ">{{ date('d/m/Y', strtotime($history->created_at)) }} a les {{date('H:i:s', strtotime($history->created_at))}}</time>
+  <ol class="mt-3 divide-y divider-gray-200 ">
+      <li>
+          <a href="#" class="block items-center p-3 sm:flex hover:bg-gray-100">
+              <img class="mr-3 mb-3 w-12 h-12 rounded-full sm:mb-0" src="{{asset('img/user_avatar.png')}}" alt="Jese Leos image">
+              <div class="text-gray-600 dark:text-gray-400">
+                  <div class="text-base font-normal"><span class="font-medium text-gray-900 ">
+                    {{ $history->userResponsible()->name }} ha canviat {{ $history->fieldName() }} de {{ $history->oldValue() }} a {{ $history->newValue() }}
+                  </div>-->
+                  <!-- <div class="text-sm font-normal">"I wanted to share a webinar zeroheight."</div>-->
+                  <!--<span class="inline-flex items-center text-xs font-normal text-gray-500 ">
+                    <svg aria-hidden="true" class="mr-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.083 9h1.946c.089-1.546.383-2.97.837-4.118A6.004 6.004 0 004.083 9zM10 2a8 8 0 100 16 8 8 0 000-16zm0 2c-.076 0-.232.032-.465.262-.238.234-.497.623-.737 1.182-.389.907-.673 2.142-.766 3.556h3.936c-.093-1.414-.377-2.649-.766-3.556-.24-.56-.5-.948-.737-1.182C10.232 4.032 10.076 4 10 4zm3.971 5c-.089-1.546-.383-2.97-.837-4.118A6.004 6.004 0 0115.917 9h-1.946zm-2.003 2H8.032c.093 1.414.377 2.649.766 3.556.24.56.5.948.737 1.182.233.23.389.262.465.262.076 0 .232-.032.465-.262.238-.234.498-.623.737-1.182.389-.907.673-2.142.766-3.556zm1.166 4.118c.454-1.147.748-2.572.837-4.118h1.946a6.004 6.004 0 01-2.783 4.118zm-6.268 0C6.412 13.97 6.118 12.546 6.03 11H4.083a6.004 6.004 0 002.783 4.118z" clip-rule="evenodd"></path></svg>
+                      Public
+                  </span> -->
+             <!--  </div>
+          </a>
+      </li>
+  </ol>
+</div>-->
+ 
+  <ol class="relative border-l border-gray-200">                  
+    <li class="mb-2 ml-6">            
+        <span class="flex absolute -left-3 justify-center items-center w-6 h-6 bg-blue-200 rounded-full ring-8 ring-white">
+            <img class="rounded-full shadow-lg" src="{{asset('img/user_avatar.png')}}" alt="Bonnie image">
+        </span>
+        <div class="justify-between items-center p-4 bg-white rounded-lg border border-gray-200 shadow-sm sm:flex">
+            <time class="mb-1 text-xs font-normal text-gray-400 sm:order-last sm:mb-0">{{ date('d/m/Y', strtotime($history->created_at)) }} a les {{date('H:i:s', strtotime($history->created_at))}}</time>
+            <div class="text-sm font-normal text-gray-500 "><a href="/{{$element->user->name}}" class="font-semibold text-blue-600  hover:underline">{{ $history->userResponsible()->name }}</a> ha canviat {{ $history->fieldName() }} de {{ $history->oldValue() }} a <span class="bg-gray-100 text-gray-800 text-xs font-normal mr-2 px-2.5 py-0.5 rounded ">{{ $history->newValue() }}</span></div>
+        </div>
+    </li>
+  </ol>
+
+  @endforeach
+</div>
+<br>
+<div class="md:w-2/2 overflow-hidden">
   <div class="">
       <p class="text-xl font-bold text-center mb-4">Afegeix un comentari</p>
       @if (session('mensaje'))
@@ -184,6 +227,7 @@
       </div>
       </form>
       <br>
+      
             <section class="relative flex items-center justify-center antialiased min-w-screen">
               <div class="container px-0 mx-auto sm:px-5">
                 @if ($element->comentarios->count())

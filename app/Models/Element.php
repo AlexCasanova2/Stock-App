@@ -7,10 +7,13 @@ use App\Models\Proveidor;
 use App\Models\Comentario;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Venturecraft\Revisionable\RevisionableTrait;
 
 class Element extends Model
 {
     use HasFactory;
+    use RevisionableTrait;
+    
     protected $dates = ['adquisicio'];
 
     protected $fillable = [

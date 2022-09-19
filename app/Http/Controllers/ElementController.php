@@ -80,9 +80,11 @@ class ElementController extends Controller
     }
 
     public function show(User $user, Element $element){
+        $history = $element->revisionHistory;
         return view('element.show', [
             'element' => $element,
-            'user' => $user
+            'user' => $user,
+            'history' => $history
         ]);
     }
 
